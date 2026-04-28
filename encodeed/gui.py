@@ -390,6 +390,7 @@ class EncodeEdApp(QWidget):
     def __init__(self):
         super().__init__()
         self.current_algorithm = None
+        self.open_dialogs = []
         self.initUI()
 
     def initUI(self):
@@ -449,6 +450,15 @@ class EncodeEdApp(QWidget):
         self.setWindowTitle("EncodeEd - Compression Visualizer")
         self.resize(1300, 650)
         self.show()
+
+    def show_dialog(self, dialog):
+        self.open_dialogs.append(dialog)
+        dialog.finished.connect(
+            lambda _result, open_dialog=dialog: self.open_dialogs.remove(open_dialog)
+            if open_dialog in self.open_dialogs
+            else None
+        )
+        dialog.show()
 
     def ask_large_input_visualisation(self):
         msg = QMessageBox()
@@ -525,7 +535,7 @@ class EncodeEdApp(QWidget):
 
             if len(text) <= 500 or self.ask_large_input_visualisation():
                 dialog = HuffmanTreeDialog(root)
-                dialog.exec_()
+                self.show_dialog(dialog)
 
             explanation = explain_huffman_output(text, encoded, codebook)
             self.visual_output.setText(explanation)
@@ -538,7 +548,7 @@ class EncodeEdApp(QWidget):
 
             if len(text) <= 500 or self.ask_large_input_visualisation():
                 dialog = ShannonFanoDialog(codebook)
-                dialog.exec_()
+                self.show_dialog(dialog)
 
             explanation = explain_shannon_fano_output(text, encoded, codebook)
             self.visual_output.setText(explanation)
@@ -648,7 +658,7 @@ class EncodeEdApp(QWidget):
             complexity = "O(n²)"
 
         dialog = RuntimeDialog(input_sizes, times, complexity, self.current_algorithm)
-        dialog.exec_()
+        self.show_dialog(dialog)
 
     def decompress_data(self):
         if self.current_algorithm == "RLE":
