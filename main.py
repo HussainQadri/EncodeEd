@@ -1,12 +1,4 @@
-import heapq
 import collections
-import time
-import matplotlib.pyplot as plt
-from scipy.optimize import curve_fit
-import timeit
-import networkx as nx
-import matplotlib.pyplot as plt
-
 
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -388,9 +380,6 @@ def arithmetic_coding_compress(string):  # the start of this algo is similiar to
         lower_range = lower_range + range_length * character_lower_range
     encoded = (lower_range + upper_range) / 2
     return encoded, probabilities
-
-print(arithmetic_coding_compress("ABCCC"))
-
 
 def arithmetic_decoding(encoded_value, string_length, probabilities):
     lower_range = 0

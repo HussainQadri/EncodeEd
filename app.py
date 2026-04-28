@@ -1,47 +1,46 @@
 import sys
-import collections
-import networkx as nx
 import matplotlib.pyplot as plt
-from PyQt5.QtWidgets import (
-    QApplication,
-    QWidget,
-    QVBoxLayout,
-    QHBoxLayout,
-    QPushButton,
-    QTextEdit,
-    QLabel,
-    QListWidget,
-    QFileDialog,
-    QGraphicsView,
-    QGraphicsScene,
-)
-from PyQt5.QtGui import QPalette, QColor, QFont, QImage, QPixmap
-from PyQt5.QtCore import Qt
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-from main import *
-
-import sys
-import collections
-from PyQt5.QtWidgets import (
-    QApplication,
-    QWidget,
-    QVBoxLayout,
-    QHBoxLayout,
-    QPushButton,
-    QTextEdit,
-    QLabel,
-    QListWidget,
-    QFileDialog,
-    QGraphicsView,
-    QGraphicsScene,
-    QDialog,
-)
-from PyQt5.QtGui import QPalette, QColor, QFont, QPainter, QPen, QBrush, QFontMetrics
-from PyQt5.QtCore import Qt, QPointF
-from main import *
-from PyQt5.QtWidgets import QDialog, QVBoxLayout, QTextEdit, QPushButton
 from ast import literal_eval
-from PyQt5.QtWidgets import QMessageBox
+
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from PyQt5.QtCore import QPointF, Qt
+from PyQt5.QtGui import QBrush, QColor, QFont, QFontMetrics, QPalette, QPen
+from PyQt5.QtWidgets import (
+    QApplication,
+    QFileDialog,
+    QDialog,
+    QGraphicsScene,
+    QGraphicsView,
+    QHBoxLayout,
+    QLabel,
+    QListWidget,
+    QMessageBox,
+    QPushButton,
+    QTextEdit,
+    QVBoxLayout,
+    QWidget,
+)
+
+from main import (
+    arithmetic_coding_compress,
+    arithmetic_decoding,
+    explain_arithmetic_output,
+    explain_huffman_output,
+    explain_lz77_output,
+    explain_lzw_output,
+    explain_rle_output,
+    explain_shannon_fano_output,
+    huffman_compress,
+    huffman_decompress,
+    lz77_compress,
+    lz77_decompress,
+    lzw_compress,
+    lzw_decompress,
+    run_length_decompress,
+    run_length_encode,
+    shannon_fano_compress,
+    shannon_fano_decompress,
+)
 
 
 class RuntimeDialog(QDialog):
@@ -501,7 +500,6 @@ class EncodeEdApp(QWidget):
     def compress_data(self):
         import time
         import numpy as np
-        from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
         text = self.input_text.toPlainText()
 
