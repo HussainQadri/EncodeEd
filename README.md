@@ -103,6 +103,20 @@ Then:
 4. Click `Decompress` to open the decompression dialog for the selected
    algorithm.
 
+## Running Tests
+
+Install the development dependencies:
+
+```bash
+python -m pip install -r requirements-dev.txt
+```
+
+Run the test suite with:
+
+```bash
+python -m pytest
+```
+
 ## Notes
 
 This repository preserves the project as an educational implementation. Some
