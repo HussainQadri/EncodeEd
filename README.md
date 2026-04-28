@@ -30,9 +30,14 @@ behaviour for different input sizes.
 
 ```text
 EncodeEd/
-├── app.py      # PyQt5 interface and visualisation dialogs
-├── main.py     # Compression algorithms and explanation helpers
+├── app.py      # Application entry point
+├── encodeed/
+│   ├── gui.py
+│   ├── algorithms/
+│   └── explanations/
+├── tests/
 ├── requirements.txt
+├── requirements-dev.txt
 ├── run.sh      # Linux/macOS launcher
 ├── run.bat     # Windows launcher
 └── README.md
