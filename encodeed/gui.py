@@ -36,11 +36,10 @@ from main import (
     lz77_decompress,
     lzw_compress,
     lzw_decompress,
-    run_length_decompress,
-    run_length_encode,
     shannon_fano_compress,
     shannon_fano_decompress,
 )
+from encodeed.algorithms.rle import run_length_decompress, run_length_encode
 
 
 class RuntimeDialog(QDialog):
