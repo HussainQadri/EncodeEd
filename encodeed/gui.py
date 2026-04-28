@@ -21,14 +21,6 @@ from PyQt5.QtWidgets import (
     QWidget,
 )
 
-from main import (
-    explain_arithmetic_output,
-    explain_huffman_output,
-    explain_lz77_output,
-    explain_lzw_output,
-    explain_rle_output,
-    explain_shannon_fano_output,
-)
 from encodeed.algorithms.arithmetic import arithmetic_coding_compress, arithmetic_decoding
 from encodeed.algorithms.huffman import huffman_compress, huffman_decompress
 from encodeed.algorithms.lz77 import lz77_compress, lz77_decompress
@@ -38,6 +30,12 @@ from encodeed.algorithms.shannon_fano import (
     shannon_fano_compress,
     shannon_fano_decompress,
 )
+from encodeed.explanations.arithmetic import explain_arithmetic_output
+from encodeed.explanations.huffman import explain_huffman_output
+from encodeed.explanations.lz77 import explain_lz77_output
+from encodeed.explanations.lzw import explain_lzw_output
+from encodeed.explanations.rle import explain_rle_output
+from encodeed.explanations.shannon_fano import explain_shannon_fano_output
 
 
 class RuntimeDialog(QDialog):
