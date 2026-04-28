@@ -1,11 +1,10 @@
 from main import (
-    arithmetic_coding_compress,
-    arithmetic_decoding,
     huffman_compress,
     huffman_decompress,
     shannon_fano_compress,
     shannon_fano_decompress,
 )
+from encodeed.algorithms.arithmetic import arithmetic_coding_compress, arithmetic_decoding
 from encodeed.algorithms.lz77 import lz77_compress, lz77_decompress
 from encodeed.algorithms.lzw import lzw_compress, lzw_decompress
 from encodeed.algorithms.rle import run_length_decompress, run_length_encode
