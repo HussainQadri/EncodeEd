@@ -28,14 +28,16 @@ from main import (
     explain_lzw_output,
     explain_rle_output,
     explain_shannon_fano_output,
-    shannon_fano_compress,
-    shannon_fano_decompress,
 )
 from encodeed.algorithms.arithmetic import arithmetic_coding_compress, arithmetic_decoding
 from encodeed.algorithms.huffman import huffman_compress, huffman_decompress
 from encodeed.algorithms.lz77 import lz77_compress, lz77_decompress
 from encodeed.algorithms.lzw import lzw_compress, lzw_decompress
 from encodeed.algorithms.rle import run_length_decompress, run_length_encode
+from encodeed.algorithms.shannon_fano import (
+    shannon_fano_compress,
+    shannon_fano_decompress,
+)
 
 
 class RuntimeDialog(QDialog):
