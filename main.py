@@ -4,6 +4,8 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 from encodeed.algorithms.rle import run_length_decompress, run_length_encode
+from encodeed.algorithms.lzw import lzw_compress, lzw_decompress
+from encodeed.algorithms.lz77 import lz77_compress, lz77_decompress
 
 
 def add_edges(graph, node, parent_label=None):
@@ -212,52 +214,6 @@ def huffman_decompress(compressed, codebook):
 
 
 
-def lzw_compress(string):
-    dictionary_length = 256  # so we can represent the first 256 ascii characters
-    dictionary = {}
-    existingCharacters = ""
-    newEntries = []
-    for i in range(dictionary_length):
-        character = chr(i)
-        dictionary[character] = i
-
-    for character in string:
-        charactersToAdd = existingCharacters + character
-        if charactersToAdd in dictionary:
-            existingCharacters = charactersToAdd
-
-        else:
-            newEntries.append(dictionary.get(existingCharacters))
-            dictionary[charactersToAdd] = dictionary_length
-            dictionary_length += 1
-            existingCharacters = character
-    if existingCharacters != "":
-        newEntries.append(dictionary.get(existingCharacters))
-    return newEntries
-
-
-
-
-def lzw_decompress(encoded):
-    dictionary_length = 256
-    dictionary = {}
-    decoded = []
-    for i in range(dictionary_length):
-        dictionary[i] = chr(i)
-    characters = dictionary[encoded[0]]
-    decoded.append(characters)
-    encoded = encoded[1:]
-    for code in encoded:
-        if code in dictionary:
-            entry = dictionary[code]
-        elif code == dictionary_length:
-            entry = characters + characters[0]
-        decoded.append(entry)
-        dictionary[dictionary_length] = characters + entry[0]
-        dictionary_length += 1
-        characters = entry
-    return "".join(decoded)
-
 def shannon_fano_helper(tuple, codebook={}, start=""):
     # This algo uses recursion because we are basically splitting a list until it only has one character, we use this condition for our base case
     if len(tuple) == 1:
@@ -382,63 +338,6 @@ def arithmetic_decoding(encoded_value, string_length, probabilities):
 
     return decoded
 
-
-
-def lz77_compress(string, window_size):
-   compressed = []
-   position = 0
-   while position < len(string):
-        # at the near beginning of the string
-      if position - window_size < 0:
-         search_window_position = 0
-      else:
-         search_window_position = position - window_size
-      
-      best_match_length = 0
-      best_match_offset = 0
-
-   # we are going back to characters we have seen before
-      for history_pointer in range(search_window_position, position):
-         possible_match_length = 0
-         while position + possible_match_length < len(string):
-            if string[possible_match_length + history_pointer] == string[position + possible_match_length]:
-               possible_match_length += 1
-               if history_pointer + possible_match_length >= position: # we can't look forward from our current position
-                  break
-            else:
-               break
-
-         if possible_match_length > best_match_length:
-            best_match_length = possible_match_length
-            best_match_offset = position - history_pointer
-
-      if best_match_length > 0:
-         if position + best_match_length < len(string):
-            character = string[position + best_match_length]
-         else:
-            character = ""
-         position += best_match_length + 1
-         compressed.append((best_match_offset,best_match_length,character))
-      else:
-         compressed.append((0,0,string[position]))
-         position += 1
-   return compressed
-
-def lz77_decompress(compressed):
-   decompressed = []
-   for offset, match_length, character in compressed:
-      if offset == 0 and match_length == 0:
-         decompressed.append(character)
-      else:
-         goBackPosition = len(decompressed) - offset
-         charactersAdded = 0
-         while charactersAdded != match_length:
-            decompressed.append(decompressed[goBackPosition])
-            goBackPosition += 1
-            charactersAdded += 1
-         decompressed.append(character)
-      
-   return ''.join(decompressed)
 
 
 # these functions are for UI, to explain the algorithms. They use the EXACT SAME algorithms as above but have a narration style to them for my UI, the only real difference is the use of the explaination variable, these don’t need to be marked algorithmically again. They are the same. 
